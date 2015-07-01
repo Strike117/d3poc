@@ -64,7 +64,7 @@ module.exports = function(grunt) {
         },
         connect: {
             options: {
-                port: 8000,
+                port: 7000,
                 hostname: 'localhost',
                 livereload: 35729
             },
@@ -77,7 +77,22 @@ module.exports = function(grunt) {
                         ];
                     }
                 }
-            }
+            }/*,
+            proxies: [{
+                context: '/db',
+                host: '10.50.24.176',
+                port: 7474,
+                https: false,
+                xforward: false,
+                changeOrigin: false
+            }, {
+                context: '/user',
+                host: '10.50.24.176',
+                port: 7474,
+                https: false,
+                xforward: false,
+                changeOrigin: false
+            }]*/
         }
     });
 
@@ -88,10 +103,11 @@ module.exports = function(grunt) {
     // grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-connect-proxy');
 
     // Default task.
     //grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify', 'connect']);
-    grunt.registerTask('default', ['connect', 'watch']);
+    grunt.registerTask('default', ['configureProxies','connect', 'watch']);
 
 
 };
